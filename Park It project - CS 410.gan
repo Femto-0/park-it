@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2024-10-09" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3300" locale="en_US">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart">
+        <field id="tpd15" name="Notes" width="20" order="-1"/>
+        <field id="tpd3" name="Name" width="200" order="0"/>
+        <field id="tpd4" name="Begin date" width="75" order="1"/>
+        <field id="tpd5" name="End date" width="75" order="2"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="216aca30681f4a56a7ad5885f4009915" name="Web UI" meeting="false" start="2024-10-09" duration="5" complete="15" thirdDate="2024-10-09" thirdDate-constraint="0" expand="true"/>
+        <task id="5" uid="014b7f9171bf40d19ebaf7a0de233013" name="Raspberry Pi" meeting="false" start="2024-10-31" duration="7" complete="0" thirdDate="2024-10-09" thirdDate-constraint="0" expand="true">
+            <notes><![CDATA[Consider this after Sprint 2?]]></notes>
+        </task>
+        <task id="2" uid="d9cc435a81fc42bb98dd83f701aaf952" name="Documentation" meeting="false" start="2024-10-09" duration="1" complete="0" thirdDate="2024-10-09" thirdDate-constraint="0" expand="true">
+            <notes><![CDATA[Visual and Scope Document
+Scrum and Agile Excel sheet
+Use Case Diagrams
+Use Case Table
+UML Diagram]]></notes>
+        </task>
+        <task id="1" uid="e660c9453e5041af9e8c6fe51083366f" name="Build and train ML Model" meeting="false" start="2024-10-09" duration="6" complete="0" thirdDate="2024-10-09" thirdDate-constraint="0" expand="true"/>
+        <task id="3" uid="32aa3476963346e693b2ad8f7b800a01" name="Find Dataset" meeting="false" start="2024-10-09" duration="6" complete="0" thirdDate="2024-10-09" thirdDate-constraint="0" expand="true"/>
+        <task id="4" uid="7172a332e8874e02b2f44a1b51916bd2" name="Research connecting model to UI" meeting="false" start="2024-10-09" duration="7" complete="0" thirdDate="2024-10-09" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Kaden Yang" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Ritesh Shah" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Mason Goss" function="Default:0" contacts="" phone=""/>
+        <resource id="3" name="Jelani Lee" function="Default:0" contacts="" phone=""/>
+        <resource id="4" name="Jack Wang" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="4" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="1" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="3" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="2" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="1" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="3" resource-id="2" function="Default:0" responsible="false" load="100.0"/>
+        <allocation task-id="0" resource-id="3" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="4" resource-id="4" function="Default:0" responsible="false" load="100.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
