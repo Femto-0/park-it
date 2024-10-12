@@ -15,3 +15,7 @@ Oct 8
 1. Look up different ways to feed data to our model in case we can't get our own live feed working
 2. Agreed to have a meeting after class tomorrow and go over all the possible solutions
 
+Oct 11
+1. Decided to use flask api as a tool to connect our ML model to our website.
+2. Also, decided on the webpage UI
+3. Next meeting after class on Monday.
