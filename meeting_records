@@ -1,0 +1,21 @@
+Oct 4
+
+Next meeting- After class coming Monday, Oct 11
+
+1.	Talked about Vision and Scope document  will be done by Ritesh by Oct 6 evening
+2.	Talked about languages to be used and dividing the work
+3.	If we really want to make a web app?
+4.	Go over the requirements of the project… Double check with prof. Iyengar 
+
+Potential Use cases:
+1.	Once the user is in the web page (assuming that we will make a web page), the user can click a button to get list of free parking slots.
+2.	Option to select what type of parking lot to view (gold, silver, bronze)
+  
+Oct 8
+1. Look up different ways to feed data to our model in case we can't get our own live feed working
+2. Agreed to have a meeting after class tomorrow and go over all the possible solutions
+
+Oct 11
+1. Decided to use flask api as a tool to connect our ML model to our website.
+2. Also, decided on the webpage UI
+3. Next meeting after class on Monday.
