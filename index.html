@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Park It</title>
+</head>
+<body>
+    <div class="container">
+
+        <!-- DIV for the left side with list of lots and the sort/filter options -->
+        <div class="lotList">
+            <!-- Sort buttons -->
+            <div class="sort-container">
+                <div id="sort-select" class="select-selected">Select sorting method
+                    <span id="reset-sort" class="reset" style="display: none;">X</span>
+                </div>
+                <div id="sort-options" class="select-items select-hide">
+                    <div data-value="space">Has Space</div>
+                    <div data-value="empty">Empty</div>
+                    <div data-value="partially-full">Partially Full</div>
+                    <div data-value="full">Full</div>
+                </div>
+            </div>
+            
+            <!-- Filter buttons -->
+            <div class="filter-container">
+                <div id="filter-select" class="filter-selected">Select filter method
+                    <span id="reset-filter" class="reset" style="display: none;">X</span>
+                </div>
+                <div id="filter-options" class="filter-items filter-hide">
+                    <div data-value="gold">Gold Lots</div>
+                    <div data-value="silver">Silver Lots</div>
+                    <div data-value="purple">Purple Lots</div>
+                    <div data-value="misc">Miscellaneous Lots</div>
+                    <div data-value="all">All Lots</div>
+                </div>
+            </div>
+
+            <!-- List container in index.html -->
+            <div class="list-container">
+                <!-- Other parking lots will be dynamically generated -->
+            </div>
+
+        </div>
+        <!-- DIV for the screen with the layout of the selected parking lot -->
+        <div class="lotLayout">
+            Click on a lot to start
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

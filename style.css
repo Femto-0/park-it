@@ -1,0 +1,174 @@
+.container {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background-color: #e9e8e0;
+    display: flex;
+    flex-direction: row;
+    padding: 30px 30px 30px 30px;
+}
+
+/* Left section - Parking lot list */
+.lotList {
+    width: 20%; /* Give 20% of the width for the list */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Additional styles for card layout */
+.list-container {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Parking lot availability styles */
+.empty {
+    background-color: #c8f8c8;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.partially-full {
+    background-color: #fff68f;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.full {
+    background-color: #ffadad;
+    padding: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.empty:hover {
+    background-color: #86d286;
+}
+
+.partially-full:hover {
+    background-color: #eade5f;
+}
+
+.full:hover {
+    background-color: #e16161;
+}
+
+/* Filter and sort dropdowns */
+.sort-container, .filter-container {
+    width: 100%; 
+    position: relative;
+}
+
+#sort-select, #filter-select {
+    font-size: 85%;
+    display: inline-block;
+    width: 110%; 
+    height: 40px; 
+    line-height: 40px;
+    background: #fbfbfb;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0 10px;
+    cursor: pointer;
+    user-select: none;
+    text-align: center; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 10px;
+    margin-left: -10px;
+    box-sizing: border-box;
+}
+
+#sort-select:hover, #filter-select:hover, #filter-class-input:hover {
+    background: #e3e3e3;
+}
+
+/* Dropdown menu styles */
+#sort-options, #filter-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#sort-options.show, #filter-options.show {
+    max-height: 200px; /* Adjust this value based on the number of filter items */
+}
+
+/* Dropdown option styles */
+#sort-options div, #filter-options div {
+    padding: 10px 20px;
+    cursor: pointer;
+    text-align: left; 
+}
+
+#sort-options div:hover, #filter-options div:hover {
+    background: #f1f1f1;
+}
+
+.filter-class-input {
+    opacity: 0;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateX(-106%);
+    transition: transform 0.4s ease-in-out, opacity 0.65s ease-in-out;
+    left: calc(100% + 10px);
+    width: 180px;
+    height: 40px; 
+    line-height: 40px; 
+    background: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0 10px;
+    user-select: none;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    box-sizing: border-box;
+}
+
+.filter-class-input.active {
+    display: inline-block;
+    z-index: +1;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+    transition: transform 0.4s ease-in-out, opacity 0.65s ease-in-out;
+}
+
+/* Right section - Parking lot layout display */
+.lotLayout {
+    width: 80%; /* Give 80% of the width for the layout */
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
