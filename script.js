@@ -12,6 +12,7 @@ const resetFilterButton = document.getElementById("reset-filter");
 async function fetchCarCount() {
     try {
         // Adding a unique timestamp to the request URL to bypass the cache
+        // Modify the 'park-it-master/record.json' part to match how your project is set up
         const response = await fetch(`park-it-master/record.json?t=${new Date().getTime()}`, { cache: 'no-cache' });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
