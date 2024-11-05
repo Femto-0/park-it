@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Park It</title>
 </head>
 <body>
+    <!-- Main container for the content -->
     <div class="container">
-
-        <!-- DIV for the left side with list of lots and the sort/filter options -->
+            <!-- Header section at the top, like a navigation bar -->
+        <div class="park-it-header">
+            <h1><i class="fa fa-automobile"></i> Park It</h1>
+        </div>
+        
+        <!-- Left side with list of lots and the sort/filter options -->
         <div class="lotList">
             <!-- Sort buttons -->
             <div class="sort-container">
@@ -38,13 +44,18 @@
                 </div>
             </div>
 
-            <!-- List container in index.html -->
-            <div class="list-container">
-                <!-- Other parking lots will be dynamically generated -->
+            <!-- Checkbox for filtering lots with handicapped spots -->
+            <div class="handicapped-filter">
+                <input type="checkbox" id="handicapped-filter" />
+                <label for="handicapped-filter">Handicap</label>
             </div>
 
+            <div class="list-container">
+                <!-- Parking lots list will be dynamically generated -->
+            </div>
         </div>
-        <!-- DIV for the screen with the layout of the selected parking lot -->
+
+        <!-- Right side for layout of selected parking lot -->
         <div class="lotLayout">
             Click on a lot to start
         </div>
