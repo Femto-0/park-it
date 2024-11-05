@@ -11,7 +11,8 @@ const resetFilterButton = document.getElementById("reset-filter");
 // Function to fetch and return the number of cars for Test Lot
 async function fetchCarCount() {
     try {
-        const response = await fetch('park-it-master/record.json'); // Modify file path to match with how project is set up
+        // Adding a unique timestamp to the request URL to bypass the cache
+        const response = await fetch(`park-it-master/record.json?t=${new Date().getTime()}`, { cache: 'no-cache' });
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -38,14 +39,17 @@ async function updateCarCount() {
     }
 }
 
+// Update the car count every 5 seconds
+setInterval(updateCarCount, 5000);      // Can change to however long, I just have it set up as 5 seconds
+
 // Function to populate the initial list of parking lots
 function populateInitialList() {
     const initialLots = [
-        { name: "Gold Main Lot", description: "This is the Gold Main Lot", availability: "empty", type: "gold" },
-        { name: "Gold Library Lot", description: "This is the Gold Library Lot", availability: "partially-full", type: "gold" },
-        { name: "Silver Winona Street Lot", description: "This is the Silver Winona Street Lot", availability: "full", type: "silver" },
-        { name: "Purple Belleview Lots", description: "This is the Purple Belleview Lots", availability: "partially-full", type: "purple" },
-        { name: "Test Lot", description: "This is the Test Lot", availability: "empty", type: "test" } // Test Lot with dynamic car count
+        { name: "Gold Main Lot", description: "This is the Gold Main Lot", availability: "empty", type: "gold", hasHandicappedSpots: true },
+        { name: "Gold Library Lot", description: "This is the Gold Library Lot", availability: "partially-full", type: "gold", hasHandicappedSpots: false },
+        { name: "Silver Winona Street Lot", description: "This is the Silver Winona Street Lot", availability: "full", type: "silver", hasHandicappedSpots: true },
+        { name: "Purple Belleview Lots", description: "This is the Purple Belleview Lots", availability: "partially-full", type: "purple", hasHandicappedSpots: false },
+        { name: "Test Lot", description: "This is the Test Lot", availability: "empty", type: "test", hasHandicappedSpots: true }
     ];
 
     listContainer.innerHTML = ""; // Clear existing items
@@ -56,9 +60,9 @@ function populateInitialList() {
         li.setAttribute('data-description', lot.description);
         li.setAttribute('data-availability', lot.availability);
         li.setAttribute('data-type', lot.type);
+        li.setAttribute('data-handicapped', lot.hasHandicappedSpots);
         li.textContent = lot.name;
 
-        // Assign color class based on availability
         if (lot.availability === "empty") {
             li.classList.add("empty");
         } else if (lot.availability === "partially-full") {
@@ -67,14 +71,13 @@ function populateInitialList() {
             li.classList.add("full");
         }
 
-        // Add event listener to each lot item to display layout information
         li.addEventListener('click', async () => {
             const name = li.getAttribute('data-name');
             const description = li.getAttribute('data-description');
             const availability = li.getAttribute('data-availability');
             const type = li.getAttribute('data-type');
-            
-            // If Test Lot is selected, fetch and display car count
+            const handicapped = li.getAttribute('data-handicapped') === 'true';
+
             if (name === "Test Lot") {
                 const carCount = await fetchCarCount();
                 displayLotLayout(name, description, availability, type, carCount);
@@ -86,6 +89,20 @@ function populateInitialList() {
         listContainer.appendChild(li);
     });
 }
+
+// Function to filter lots based on handicapped spots
+function filterHandicappedLots() {
+    const isChecked = document.getElementById('handicapped-filter').checked;
+    const lots = listContainer.querySelectorAll('li');
+
+    lots.forEach(lot => {
+        const hasHandicappedSpots = lot.getAttribute('data-handicapped') === 'true';
+        lot.style.display = (isChecked && !hasHandicappedSpots) ? 'none' : 'block';
+    });
+}
+
+// Event listener for the handicapped filter checkbox
+document.getElementById('handicapped-filter').addEventListener('change', filterHandicappedLots);
 
 // Function to display layout information based on the selected lot
 function displayLotLayout(name, description, availability, type, carCount = null) {
@@ -101,25 +118,12 @@ function displayLotLayout(name, description, availability, type, carCount = null
 // Sorting logic
 function sortTasks(method) {
     const lots = Array.from(listContainer.children);
-    const availabilityOrder = {
-        "empty": 0,
-        "partially-full": 1,
-        "full": 2,
-    };
+    const availabilityOrder = { "empty": 0, "partially-full": 1, "full": 2 };
 
     const sortedLots = lots.sort((a, b) => {
         const availabilityA = a.getAttribute('data-availability');
         const availabilityB = b.getAttribute('data-availability');
-
-        if (method === "space") {
-            return (availabilityA === "empty" || availabilityA === "partially-full") ? -1 : 1;
-        } else if (availabilityA === method && availabilityB !== method) {
-            return -1;
-        } else if (availabilityA !== method && availabilityB === method) {
-            return 1;
-        } else {
-            return availabilityOrder[availabilityA] - availabilityOrder[availabilityB];
-        }
+        return availabilityOrder[availabilityA] - availabilityOrder[availabilityB];
     });
 
     listContainer.innerHTML = ""; // Clear current list
@@ -135,20 +139,18 @@ function filterTasks(method) {
     });
 }
 
-
-// Function to toggle dropdown visibility
+// Dropdown handling functions
 function toggleDropdown(options) {
     closeDropdowns();
     options.classList.toggle("show");
 }
 
-// Function to close dropdowns
 function closeDropdowns() {
     sortOptions.classList.remove("show");
     filterOptions.classList.remove("show");
 }
 
-// Event listeners for sort and filter options
+// Event listeners for sort and filter dropdowns
 sortSelect.addEventListener("click", (e) => {
     e.stopPropagation(); 
     toggleDropdown(sortOptions);
@@ -156,11 +158,10 @@ sortSelect.addEventListener("click", (e) => {
 
 sortOptions.addEventListener("click", (e) => {
     if (e.target.tagName === "DIV" && e.target.dataset.value) {
-        sortSelect.textContent = e.target.textContent; // Set selected option
-        resetSortButton.style.display = "inline"; // Show clear button
+        sortSelect.textContent = e.target.textContent;
+        resetSortButton.style.display = "inline"; 
         sortOptions.classList.remove("show"); 
-        const method = e.target.dataset.value;
-        sortTasks(method); // Call sorting function
+        sortTasks(e.target.dataset.value);
     }
 });
 
@@ -171,41 +172,35 @@ filterSelect.addEventListener("click", (e) => {
 
 filterOptions.addEventListener("click", (e) => {
     if (e.target.tagName === "DIV" && e.target.dataset.value) {
-        filterSelect.textContent = e.target.textContent; // Set selected option
-        resetFilterButton.style.display = "inline"; // Show clear button
+        filterSelect.textContent = e.target.textContent;
+        resetFilterButton.style.display = "inline";
         filterOptions.classList.remove("show");
-        const method = e.target.dataset.value;
-        filterTasks(method); // Call filtering function
+        filterTasks(e.target.dataset.value);
     }
 });
 
 // Clear button logic for sort and filter
-resetSortButton.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    sortSelect.textContent = "Select sorting method"; 
-    resetSortButton.style.display = "none"; 
+resetSortButton.addEventListener("click", () => {
+    sortSelect.textContent = "Select sorting method";
+    resetSortButton.style.display = "none";
     populateInitialList();
 });
 
-resetFilterButton.addEventListener("click", (e) => {
-    e.stopPropagation(); 
-    filterSelect.textContent = "Select filter method"; 
+resetFilterButton.addEventListener("click", () => {
+    filterSelect.textContent = "Select filter method";
     resetFilterButton.style.display = "none";
-    filterTasks(""); // Reset all filters
+    filterTasks("all");
 });
 
-// Add a global click event listener to close dropdowns when clicking outside
+// Close dropdowns on outside click
 document.addEventListener("click", (e) => {
-    const target = e.target;
-    if (!sortOptions.contains(target) && !sortSelect.contains(target)) {
+    if (!sortOptions.contains(e.target) && !sortSelect.contains(e.target)) {
         sortOptions.classList.remove("show");
     }
-    if (!filterOptions.contains(target) && !filterSelect.contains(target)) {
+    if (!filterOptions.contains(e.target) && !filterSelect.contains(e.target)) {
         filterOptions.classList.remove("show");
     }
 });
 
-// Initialize the list on page load
+// Initial population of the parking lot list
 populateInitialList();
-updateCarCount(); // Initial load of car count
-setInterval(updateCarCount, 5000); // Update car count every 5 seconds
