@@ -3,9 +3,10 @@ from collections import Counter
 import cv2
 import time
 import json
-from pytube import YouTube
+# from pytube import YouTube
 
 model = YOLO("runs/detect/train3/weights/best.pt")
+picture_count =0;  #keeps track of how many pictures have been processed so far
 
 
 """"
@@ -80,7 +81,7 @@ with open ('record.json', 'w') as json_file:
     print ("Initial json file created")
 
 
-cap=cv2.VideoCapture('test2.mp4') # url of the livestream
+cap=cv2.VideoCapture('test.mp4') # url of the livestream
 
 if not cap.isOpened():
     print("error: couldnot open the video stream")
@@ -105,7 +106,7 @@ while True:
     object_classes= [model.names[int(box.cls)] for box in results_list[0].boxes]
     object_counts= Counter(object_classes) #number of objects detected in that frame
 
-    annotated_frame= results_list[0].plot()
+    annotated_frame= results_list[0].plot() #frame we will be using to keep record
 
 
 
@@ -116,20 +117,22 @@ while True:
     current_time=time.time()
 
     if current_time-last_capture_time >= capture_interval:
+        picture_count+=1  #increase the count if the picture is going to be processed
         for obj_class, count in object_counts.items():
             text= f"{obj_class}: {count}"
-            cv2.putText(annotated_frame, text, (50, 30), cv2.FONT_HERSHEY_COMPLEX, 0.5, (52, 94, 235), 2, cv2.LINE_AA)
+            cv2.putText(annotated_frame, text, (50, 50), cv2.FONT_HERSHEY_COMPLEX, 1, (0,0,0), 2, cv2.LINE_AA)  #cv2.putText(image, text, location, font, fontScale, color, thickness, cv2.LINE_AA)
                
                #reading the json file and updating it with new information
             with open ('record.json', 'r') as json_file:
                 data=json.load(json_file)
                 data["number_of_cars"]=count
+                data["picture_count"]= picture_count
             
             with open ('record.json', 'w') as json_file:
                 json.dump(data, json_file, indent=4)
 
-        cv2.imwrite(f'captured_frame_{int(current_time)}.jpg', annotated_frame) # save the captured frame for future refernce
-        print(f"Frame captured and saved as 'captured_frame_{int(current_time)}.jpg'.")
+        cv2.imwrite(f'captured_frame_{int(picture_count)}.jpg', annotated_frame) # save the captured frame for future refernce
+        print(f"Frame captured and saved as 'captured_frame_{int(picture_count)}.jpg'.")
         last_capture_time=current_time
         
 
