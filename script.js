@@ -1,18 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const totalSpaces = 120; 
+    const totalSpaces = 120; // Set the total number of spaces here
+
+    // Set the initial values for total spaces and image
     document.getElementById("totalSpaces").textContent = totalSpaces;
-    
     document.getElementById("lotImage").src = "captured_frame_1.jpg";
-
     document.getElementById("availableSpace").textContent = totalSpaces;
-});
 
-// Function to dynamically update the total number of cars in the lot and image
-document.addEventListener("DOMContentLoaded", () => {
-    const totalSpaces = 120; 
-    document.getElementById("totalSpaces").textContent = totalSpaces;
-
-    // Function to read the JSON file
+    // Function to read the JSON file and update parking data
     const updateParkingData = () => {
         fetch("record.json")
             .then(response => {
@@ -25,14 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const numberOfCars = data.number_of_cars;
                 const pictureCount = data.picture_count;
                 const spotsAvailable = totalSpaces - numberOfCars;
+                const newImagePath = `captured_frame_${pictureCount}.jpg`;
 
                 // Update number of parked cars
                 document.getElementById("carsParked").textContent = numberOfCars;
 
+                // Update number of available spaces
                 document.getElementById("availableSpace").textContent = spotsAvailable;
-
-                // Construct the new image path
-                const newImagePath = `captured_frame_${pictureCount}.jpg`;
 
                 // Update the image source dynamically
                 document.getElementById("lotImage").src = newImagePath;
