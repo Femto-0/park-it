@@ -8,56 +8,24 @@
     <title>Park It</title>
 </head>
 <body>
-    <!-- Main container for the content -->
     <div class="container">
-            <!-- Header section at the top, like a navigation bar -->
+        <!-- The header/title spot -->
         <div class="park-it-header">
             <h1><i class="fa fa-automobile"></i> Park It</h1>
         </div>
-        
-        <!-- Left side with list of lots and the sort/filter options -->
-        <div class="lotList">
-            <!-- Sort buttons -->
-            <div class="sort-container">
-                <div id="sort-select" class="select-selected">Select sorting method
-                    <span id="reset-sort" class="reset" style="display: none;">X</span>
-                </div>
-                <div id="sort-options" class="select-items select-hide">
-                    <div data-value="space">Has Space</div>
-                    <div data-value="empty">Empty</div>
-                    <div data-value="partially-full">Partially Full</div>
-                    <div data-value="full">Full</div>
-                </div>
-            </div>
-            
-            <!-- Filter buttons -->
-            <div class="filter-container">
-                <div id="filter-select" class="filter-selected">Select filter method
-                    <span id="reset-filter" class="reset" style="display: none;">X</span>
-                </div>
-                <div id="filter-options" class="filter-items filter-hide">
-                    <div data-value="gold">Gold Lots</div>
-                    <div data-value="silver">Silver Lots</div>
-                    <div data-value="purple">Purple Lots</div>
-                    <div data-value="misc">Miscellaneous Lots</div>
-                    <div data-value="all">All Lots</div>
-                </div>
-            </div>
 
-            <!-- Checkbox for filtering lots with handicapped spots -->
-            <div class="handicapped-filter">
-                <input type="checkbox" id="handicapped-filter" />
-                <label for="handicapped-filter">Handicap</label>
-            </div>
-
-            <div class="list-container">
-                <!-- Parking lots list will be dynamically generated -->
-            </div>
-        </div>
-
-        <!-- Right side for layout of selected parking lot -->
+        <!-- The layout area for the parking lot -->
         <div class="lotLayout">
-            Click on a lot to start
+            <div class="lot-info">
+                <h2>Parking Lot: Test Lot</h2>
+                <p>Total Spaces: <span id="totalSpaces">Loading...</span></p>
+                <p>Cars Parked: <span id="carsParked">Loading...</span></p>
+                <p>Available Spaces: <span id="availableSpace">Loading...</span></p>
+            </div>
+
+            <div class="lot-image">
+                <img id="lotImage" src="parking_lot.jpg" alt="Test Lot">
+            </div>
         </div>
     </div>
 
